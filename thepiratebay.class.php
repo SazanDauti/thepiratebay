@@ -25,13 +25,13 @@
 class ThePirateBay {
     
     private function openConnection($url) {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/x-www-form-urlencoded'
-        ));
+        $agent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
+        $ch    = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+        curl_setopt($ch, CURLOPT_URL, $url);
         $contents = curl_exec($ch);
         return $contents;
     }
@@ -49,10 +49,8 @@ class ThePirateBay {
         
         $searchpage = $page - 1;
         $url        = "http://thepiratebay.se/search/" . $q . "/" . $searchpage . "/99/0";
-        
-        $contents = $this->openConnection($url);
-        
-        $dom = new DOMDocument();
+        $contents   = $this->openConnection($url);
+        $dom        = new DOMDocument();
         @$dom->loadHTML($contents);
         $xpath = new DOMXpath($dom);
         
@@ -112,7 +110,7 @@ class ThePirateBay {
         
         return $all_array;
         
-       
+        
     }
     
     
