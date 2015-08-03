@@ -23,6 +23,8 @@
  * 
  */
 class ThePirateBay {
+
+	public $host = "http://thepiratebay.cr";
     
     private function openConnection($url) {
         $agent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
@@ -48,7 +50,7 @@ class ThePirateBay {
         
         
         $searchpage = $page - 1;
-        $url        = "http://thepiratebay.se/search/" . $q . "/" . $searchpage . "/99/0";
+        $url        = $this->host . "/search/" . $q . "/" . $searchpage . "/99/0";
         $contents   = $this->openConnection($url);
         $dom        = new DOMDocument();
         @$dom->loadHTML($contents);
