@@ -6,6 +6,9 @@ $query = "example";
 $page  = 1;
 
 $tpb    = new ThePirateBay;
+/* OPTIONAL HOST CHANGE
+$tpb->host = "http://thepiratebay.cr";
+*/
 $search = $tpb->searchTorrents($query, $page);
 
 foreach ($search as $info) {
